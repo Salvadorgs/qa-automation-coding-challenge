@@ -47,3 +47,16 @@ Help Adam gain confidence in further development by automatically testing the mo
 - Please submit a link to your finished repository when you are ready
 
 ## Good luck and happy coding! :)
+
+
+## Salvador Testing GitHub Repos App Test Suite
+
+-This repository contains a set of test cases for the GitHub Repos App, a React application that fetches and displays GitHub repositories based on a provided username. The test suite uses the @testing-library/react library to ensure the app's components and features work correctly.
+
+## Salvador Overview:
+
+-Rendering the app header: Ensures the "Get Github Repos" header is displayed correctly.
+-Displaying a loading spinner during data fetch: Tests the loading spinner when fetching data.
+-Displaying "No repos" message when none found: Checks the correct message for empty repositories.
+-Displaying fetched repositories: Tests rendering of repo names, descriptions, and links.
+-Displaying error for invalid user: Verifies error message when an invalid username is used.
