@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, fireEvent, waitFor, act } from '@testing-library/react';
+import { render, fireEvent, act } from '@testing-library/react';
 import App from './App';
 
 describe('App', () => {
@@ -17,9 +17,7 @@ describe('App', () => {
 
     const { getByLabelText, getByText, findByText } = render(<App />);
 
-    const usernameInput = getByLabelText('Github Username');
     const submitButton = getByText('Go');
-
     fireEvent.click(submitButton);
 
     await act(async () => {
@@ -34,11 +32,9 @@ describe('App', () => {
       json: () => Promise.resolve([]),
     });
 
-    const { getByLabelText, getByText, findByText } = render(<App />);
+    const { getByText, findByText } = render(<App />);
 
-    const usernameInput = getByLabelText('Github Username');
     const submitButton = getByText('Go');
-
     fireEvent.click(submitButton);
 
     await act(async () => {
@@ -58,23 +54,19 @@ describe('App', () => {
       json: () => Promise.resolve(mockedRepos),
     });
 
-    const { getByLabelText, getByText, findByText } = render(<App />);
+    const { getByText, findByText } = render(<App />);
 
-    const usernameInput = getByLabelText('Github Username');
     const submitButton = getByText('Go');
-
     fireEvent.click(submitButton);
 
     await act(async () => {
-      mockedRepos.forEach(async (repo) => {
-        await act(async () => {
-          const repoLink = await findByText(repo.name);
-          expect(repoLink).toBeInTheDocument();
-          expect(repoLink).toHaveAttribute('href', repo.html_url);
-        });
-      });
+      for (const repo of mockedRepos) {
+        const repoLink = await findByText(repo.name);
+        expect(repoLink).toBeInTheDocument();
+        expect(repoLink).toHaveAttribute('href', repo.html_url);
+      }
 
-      const repoAmount = findByText('Found 2 Repos');
+      const repoAmount = await findByText('Found 2 Repos');
       expect(repoAmount).toBeInTheDocument();
     });
   });
@@ -85,11 +77,9 @@ describe('App', () => {
       status: 404,
     });
 
-    const { getByLabelText, getByText, findByText } = render(<App />);
+    const { getByText, findByText } = render(<App />);
 
-    const usernameInput = getByLabelText('Github Username');
     const submitButton = getByText('Go');
-
     fireEvent.click(submitButton);
 
     await act(async () => {

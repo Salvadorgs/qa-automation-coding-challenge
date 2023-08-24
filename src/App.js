@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { act } from 'react-dom/test-utils'; // Import act from test-utils
 
 import './App.css';
 
@@ -31,17 +32,19 @@ function App() {
   const [dataState, setDataState] = useState(LOADING_STATE.IDLE);
   const [message, setMessage] = useState(null);
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
 
-    setDataState(LOADING_STATE.LOADING);
+    await act(async () => {
+      setDataState(LOADING_STATE.LOADING);
 
-    fetch(`https://api.github.com/users/${username}/repos`)
-      .then(throwErrorIfNeeded)
-      .then((response) => response.json())
-      .then(onSuccess)
-      .catch(onFailure)
-      .finally(afterFetch);
+      fetch(`https://api.github.com/users/${username}/repos`)
+        .then(throwErrorIfNeeded)
+        .then((response) => response.json())
+        .then(onSuccess)
+        .catch(onFailure)
+        .finally(afterFetch);
+    });
   };
 
   const throwErrorIfNeeded = (response) => {
