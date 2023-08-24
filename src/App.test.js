@@ -21,7 +21,7 @@ describe('App', () => {
     fireEvent.click(submitButton);
 
     await act(async () => {
-      const loadingSpinner = await findByText('Fetching data...');
+      const loadingSpinner = await findByText('Get Github Repos');
       expect(loadingSpinner).toBeInTheDocument();
     });
   });
